@@ -43,6 +43,8 @@ body {
 body {
   display: flex;
   min-height: 100vh;
+  height: auto;
+  overflow-x: hidden;
 }
 
 .sidebar {
@@ -168,7 +170,10 @@ body {
   margin-left: 280px;
   padding: 2rem 1.5rem;
   padding-top: 5rem; /* Account for fixed nav */
+  padding-bottom: 3rem; /* Add bottom padding */
   flex: 1;
+  min-height: auto;
+  height: auto;
 }
 
 /* ============================================
@@ -381,6 +386,15 @@ em {
   page-break-before: always;
   margin: 4rem 0;
   border-top: 1px solid #e0e0e0;
+}
+
+/* Remove extra spacing from page break divs in web view */
+div[style*="page-break-before"] {
+  margin: 0;
+  padding: 0;
+  height: 0;
+  border: none;
+  display: block;
 }
 
 /* ============================================
