@@ -299,76 +299,45 @@ document.addEventListener('DOMContentLoaded', function() {
     searchResults = [];
     const processedIds = new Set();
     
-    // Find all headings with IDs first (most specific)
-    const headings = content.querySelectorAll('h1[id], h2[id], h3[id], h4[id]');
-    headings.forEach(heading => {
-      if (!heading.id || processedIds.has(heading.id)) return;
+    // Simple approach: find all sections and headings with IDs, check their text
+    const allElements = content.querySelectorAll('section[id], h1[id], h2[id], h3[id], h4[id]');
+    
+    allElements.forEach(el => {
+      if (!el.id || processedIds.has(el.id)) return;
       
-      // Get the section that contains this heading
-      const section = heading.closest('section[id]') || heading.parentElement;
-      
-      // Get text content starting from this heading
-      let textContent = '';
-      let current = heading.nextSibling;
-      while (current && current !== section?.nextSibling) {
-        if (current.nodeType === Node.TEXT_NODE) {
-          textContent += current.textContent;
-        } else if (current.nodeType === Node.ELEMENT_NODE) {
-          // Stop if we hit another heading or section
-          if (current.tagName.match(/^H[1-4]$/) || current.tagName === 'SECTION') {
-            break;
-          }
-          textContent += current.textContent || current.innerText;
+      // Get text content (excluding nested sections if it's a section)
+      let textToSearch = '';
+      if (el.tagName === 'SECTION') {
+        // For sections, get text but exclude nested sections
+        const clone = el.cloneNode(true);
+        clone.querySelectorAll('section').forEach(s => s.remove());
+        textToSearch = clone.textContent || clone.innerText;
+      } else {
+        // For headings, get the heading text and following content until next heading
+        textToSearch = el.textContent || el.innerText;
+        let next = el.nextElementSibling;
+        while (next && !next.tagName.match(/^H[1-4]$/) && !next.tagName === 'SECTION') {
+          textToSearch += ' ' + (next.textContent || next.innerText);
+          next = next.nextElementSibling;
         }
-        current = current.nextSibling;
       }
       
-      // Also include the heading text itself
-      const fullText = (heading.textContent + ' ' + textContent).trim();
-      
-      if (regex.test(fullText)) {
-        const matches = fullText.match(regex);
-        const title = heading.textContent.trim();
+      if (regex.test(textToSearch)) {
+        const matches = textToSearch.match(regex);
+        const title = el.querySelector('h1, h2, h3, h4')?.textContent?.trim() || 
+                     el.textContent?.trim() || 
+                     el.id.replace(/-/g, ' ');
         
+        // Store the actual DOM element
         searchResults.push({
-          id: heading.id,
+          id: el.id,
           title: title,
-          element: heading,
-          section: section,
+          element: el,
           matches: matches ? matches.length : 0
         });
-        processedIds.add(heading.id);
+        processedIds.add(el.id);
       }
     });
-    
-    // If no heading matches, search in sections
-    if (searchResults.length === 0) {
-      const sections = content.querySelectorAll('section[id]');
-      sections.forEach(section => {
-        if (!section.id || processedIds.has(section.id)) return;
-        
-        // Get text without nested sections
-        const sectionClone = section.cloneNode(true);
-        sectionClone.querySelectorAll('section').forEach(nested => nested.remove());
-        const sectionText = sectionClone.textContent || sectionClone.innerText;
-        
-        if (regex.test(sectionText)) {
-          const matches = sectionText.match(regex);
-          const title = section.querySelector('h1, h2, h3, h4')?.textContent?.trim() || 
-                       section.id.replace(/-/g, ' ') || 
-                       'Untitled Section';
-          
-          searchResults.push({
-            id: section.id,
-            title: title,
-            element: section.querySelector('h1, h2, h3, h4') || section,
-            section: section,
-            matches: matches ? matches.length : 0
-          });
-          processedIds.add(section.id);
-        }
-      });
-    }
     
     // Highlight matches
     highlightMatches(query);
