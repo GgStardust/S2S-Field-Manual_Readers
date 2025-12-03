@@ -738,6 +738,14 @@ div[style*="page-break-before"] {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.form-group input[type="checkbox"] {
+  width: auto;
+  padding: 0;
+  margin-right: 0.75rem;
+  cursor: pointer;
+  accent-color: var(--color-accent);
+}
+
 .form-group input[type="text"]:focus,
 .form-group input[type="email"]:focus,
 .form-group input[type="date"]:focus,

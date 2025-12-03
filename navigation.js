@@ -75,6 +75,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('scroll', updateActiveNav);
   updateActiveNav();
+
+  // Field Report checkbox toggle
+  const fieldReportCheckbox = document.getElementById('field-report-request');
+  const fieldReportEmailGroup = document.getElementById('field-report-email-group');
+  
+  if (fieldReportCheckbox && fieldReportEmailGroup) {
+    fieldReportCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        fieldReportEmailGroup.style.display = 'block';
+      } else {
+        fieldReportEmailGroup.style.display = 'none';
+        // Clear email field when unchecked
+        document.getElementById('field-report-email').value = '';
+      }
+    });
+  }
 });
 
 function createSidebarNav() {
