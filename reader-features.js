@@ -424,12 +424,16 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function displaySearchResults(query) {
-    searchResultsDiv.innerHTML = searchResults.map((result, index) => `
+    searchResultsDiv.innerHTML = searchResults.map((result, index) => {
+      const similarity = result.similarity || 0;
+      const similarityPercent = isNaN(similarity) ? 0 : Math.round(similarity * 100);
+      return `
       <div class="search-result-item" data-index="${index}" data-id="${result.id}">
         <h4>${result.title}</h4>
-        <p>${result.matches} match${result.matches !== 1 ? 'es' : ''} • ${Math.round(result.similarity * 100)}% resonance</p>
+        <p>${result.matches} match${result.matches !== 1 ? 'es' : ''} • ${similarityPercent}% resonance</p>
       </div>
-    `).join('');
+    `;
+    }).join('');
     
     searchCount.textContent = `${currentSearchIndex + 1} of ${searchResults.length}`;
     
@@ -458,40 +462,79 @@ document.addEventListener('DOMContentLoaded', function() {
     currentSearchIndex = index;
     const result = searchResults[index];
     
-    // Use the stored element directly
-    let element = result.element;
+    // Try multiple methods to find the element
+    let element = null;
     
-    // If element not found, try by ID
-    if (!element || !document.body.contains(element)) {
-      element = document.getElementById(result.id);
+    // Method 1: Try by ID first (most reliable)
+    element = document.getElementById(result.id);
+    
+    // Method 2: If not found, try the stored element reference
+    if (!element && result.element) {
+      // Check if element is still in DOM
+      if (document.body.contains(result.element)) {
+        element = result.element;
+      }
     }
     
-    // If still not found, try finding by title text
+    // Method 3: Find by title text in headings
     if (!element) {
-      const headings = document.querySelectorAll('h1, h2, h3, h4');
+      const headings = document.querySelectorAll('.container h1, .container h2, .container h3, .container h4');
       for (let heading of headings) {
-        if (heading.textContent.trim() === result.title) {
-          element = heading;
+        const headingText = heading.textContent.trim();
+        if (headingText === result.title || headingText.includes(result.title) || result.title.includes(headingText)) {
+          // If heading has an ID, use it; otherwise use the heading itself
+          if (heading.id) {
+            element = document.getElementById(heading.id);
+          } else {
+            element = heading;
+          }
+          break;
+        }
+      }
+    }
+    
+    // Method 4: Find section containing a heading with matching text
+    if (!element) {
+      const sections = document.querySelectorAll('.container section[id]');
+      for (let section of sections) {
+        const heading = section.querySelector('h1, h2, h3, h4');
+        if (heading && heading.textContent.trim() === result.title) {
+          element = section.id ? document.getElementById(section.id) : section;
           break;
         }
       }
     }
     
     if (element) {
-      const offset = 120;
-      const elementPosition = element.offsetTop - offset;
+      // Calculate scroll position accounting for fixed nav and sidebar
+      const offset = 150;
+      let scrollPosition;
+      
+      // If it's a heading, scroll to it
+      if (element.tagName.match(/^H[1-4]$/)) {
+        scrollPosition = element.offsetTop - offset;
+      } else {
+        // For sections, find the first heading or use section top
+        const heading = element.querySelector('h1, h2, h3, h4');
+        scrollPosition = heading ? (heading.offsetTop - offset) : (element.offsetTop - offset);
+      }
       
       window.scrollTo({
-        top: Math.max(0, elementPosition),
+        top: Math.max(0, scrollPosition),
         behavior: 'smooth'
       });
       
       // Highlight briefly
-      element.style.transition = 'background-color 0.3s';
-      element.style.backgroundColor = 'rgba(212, 175, 55, 0.2)';
-      setTimeout(() => {
-        element.style.backgroundColor = '';
-      }, 2000);
+      const highlightTarget = element.tagName.match(/^H[1-4]$/) ? element : (element.querySelector('h1, h2, h3, h4') || element);
+      if (highlightTarget) {
+        highlightTarget.style.transition = 'background-color 0.3s';
+        highlightTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.2)';
+        setTimeout(() => {
+          highlightTarget.style.backgroundColor = '';
+        }, 2000);
+      }
+    } else {
+      console.warn('Could not find element for:', result);
     }
     
     searchCount.textContent = `${index + 1} of ${searchResults.length}`;
