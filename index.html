@@ -3010,6 +3010,21 @@
 
 <form id="reader-feedback-form" class="feedback-form" action="https://formspree.io/f/meoykvbq" method="POST">
   
+  <section class="feedback-section" style="border-bottom: 2px solid var(--color-accent); padding-bottom: 2rem;">
+    <h2>Reader Information</h2>
+    
+    <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px;">
+        <label for="reader-name">Your Name <span class="required">*</span></label>
+        <input type="text" id="reader-name" name="reader_name" required>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <label for="feedback-date">Date <span class="required">*</span></label>
+        <input type="date" id="feedback-date" name="feedback_date" required>
+      </div>
+    </div>
+  </section>
+  
   <section class="feedback-section">
     <h2>Section 1 — Overall Experience</h2>
     
