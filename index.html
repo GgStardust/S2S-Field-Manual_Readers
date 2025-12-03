@@ -2996,6 +2996,252 @@
 <p>A relational alignment that creates form through balance.</p>
 </section>
 </section>
+
+<div style="page-break-before: always;"></div>
+
+<section id="first-reader-feedback" class="level1">
+<h1>S2S First Reader Feedback Form</h1>
+
+<div class="feedback-intro">
+<p><strong>Thank you for reading this early version of the manuscript.</strong></p>
+<p>Your responses help refine clarity, coherence, and resonance across the full field of the book.</p>
+<p>Please answer from your direct experience. There are no wrong answers.</p>
+</div>
+
+<form id="reader-feedback-form" class="feedback-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  
+  <section class="feedback-section">
+    <h2>Section 1 — Overall Experience</h2>
+    
+    <div class="form-group">
+      <label for="q1">1. How would you describe your overall experience with the manuscript? <span class="required">*</span></label>
+      <textarea id="q1" name="overall_experience" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q2">2. What three words describe how the book made you feel?</label>
+      <input type="text" id="q2" name="three_words" placeholder="e.g., expansive, grounded, luminous">
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 2 — Signal Clarity</h2>
+    
+    <div class="form-group">
+      <label for="q3">3. The core ideas felt clear and coherent. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Not at all</span>
+        <span>5 = Very clear</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q3" name="core_ideas_clarity" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q4">4. Which sections or ideas felt the clearest?</label>
+      <textarea id="q4" name="clearest_sections" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q5">5. Which sections felt saturated or difficult to track?</label>
+      <textarea id="q5" name="difficult_sections" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 3 — Emotional Resonance</h2>
+    
+    <div class="form-group">
+      <label for="q6">6. Which passages or chapters landed most deeply for you? <span class="required">*</span></label>
+      <textarea id="q6" name="deepest_passages" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q7">7. Where did you feel the strongest emotional or energetic shift?</label>
+      <textarea id="q7" name="strongest_shift" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q8">8. Were there places where you felt disconnected or less engaged?</label>
+      <textarea id="q8" name="disconnected_places" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 4 — Structure, Flow, and Reader Orientation</h2>
+    
+    <div class="form-group">
+      <label for="q9">9. The structure of the manuscript helped me stay oriented. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Not at all</span>
+        <span>5 = Fully</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q9" name="structure_orientation" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q10">10. Did any transitions feel abrupt or unclear? Please note where.</label>
+      <textarea id="q10" name="abrupt_transitions" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q11">11. Did the pacing feel aligned with your reading rhythm?</label>
+      <div class="scale-labels">
+        <span>1 = Too slow</span>
+        <span>5 = Too fast</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q11" name="pacing_alignment" min="1" max="5" value="3">
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 5 — Density + Overwhelm Check</h2>
+    
+    <div class="form-group">
+      <label for="q12">12. The level of density felt supportive and engaging. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Overwhelming</span>
+        <span>5 = Perfectly calibrated</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q12" name="density_level" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q13">13. Were there places where the density exceeded your bandwidth?</label>
+      <textarea id="q13" name="density_exceeded" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q14">14. What would have helped maintain your engagement through denser sections?</label>
+      <textarea id="q14" name="engagement_help" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 6 — Conceptual Continuity</h2>
+    
+    <div class="form-group">
+      <label for="q15">15. The ideas built on each other in a coherent way. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Disconnected</span>
+        <span>5 = Strong continuity</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q15" name="conceptual_continuity" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q16">16. Which concepts or areas felt the most integrated?</label>
+      <textarea id="q16" name="most_integrated" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q17">17. Which concepts or areas felt the least integrated or most confusing?</label>
+      <textarea id="q17" name="least_integrated" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 7 — Practical Integration</h2>
+    
+    <div class="form-group">
+      <label for="q18">18. I felt clear about how to integrate or use the material in my own life.</label>
+      <div class="scale-labels">
+        <span>1 = Not at all</span>
+        <span>5 = Very clear</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q18" name="practical_integration" min="1" max="5" value="3">
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q19">19. Which parts felt most usable or applicable?</label>
+      <textarea id="q19" name="most_usable" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q20">20. Which parts felt like they needed more guidance or framing?</label>
+      <textarea id="q20" name="needed_guidance" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 8 — Most Powerful Elements</h2>
+    
+    <div class="form-group">
+      <label for="q21">21. Which chapter or section felt the most complete and powerful? Why? <span class="required">*</span></label>
+      <textarea id="q21" name="most_powerful" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q22">22. Which chapter or section felt like it needs more development? Why? <span class="required">*</span></label>
+      <textarea id="q22" name="needs_development" rows="5" required></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 9 — Reader Afterglow</h2>
+    
+    <div class="form-group">
+      <label for="q23">23. What stayed with you after you finished reading? <span class="required">*</span></label>
+      <textarea id="q23" name="what_stayed" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q24">24. Did anything shift in your perception, awareness, or sense of self after reading?</label>
+      <textarea id="q24" name="shifts_after_reading" rows="5"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 10 — Final Reflections</h2>
+    
+    <div class="form-group">
+      <label for="q25">25. What is one thing you want the author to know as she continues refining this book? <span class="required">*</span></label>
+      <textarea id="q25" name="one_thing_to_know" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q26">26. If you could ask one question about the book or the system, what would it be?</label>
+      <input type="text" id="q26" name="one_question" placeholder="Your question...">
+    </div>
+  </section>
+
+  <div class="form-submit">
+    <button type="submit" class="submit-button">Submit Feedback</button>
+    <p class="form-note">Thank you for reading with presence and precision. Your feedback shapes the coherence of the final field.</p>
+  </div>
+
+</form>
+
+</section>
   </div>
 </body>
 </html>
