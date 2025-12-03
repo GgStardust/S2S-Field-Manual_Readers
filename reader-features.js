@@ -400,6 +400,203 @@ document.addEventListener('DOMContentLoaded', function() {
   renderBookmarks();
   
   // ============================================
+  // SEARCH FUNCTIONALITY
+  // ============================================
+  
+  // Create search UI
+  const searchToggle = document.createElement('button');
+  searchToggle.id = 'search-toggle';
+  searchToggle.innerHTML = '<span class="icon">○</span><span class="label">Search</span>';
+  searchToggle.className = 'search-toggle';
+  searchToggle.setAttribute('aria-label', 'Toggle search');
+  document.body.appendChild(searchToggle);
+  
+  const searchPanel = document.createElement('div');
+  searchPanel.id = 'search-panel';
+  searchPanel.className = 'search-panel';
+  searchPanel.innerHTML = `
+    <div class="search-header">
+      <h3>Search</h3>
+      <button class="search-close" aria-label="Close search">×</button>
+    </div>
+    <div class="search-content">
+      <div class="search-input-wrapper">
+        <input type="text" id="search-input" placeholder="Search the manuscript..." autocomplete="off">
+        <button id="search-clear" class="search-clear" style="display: none;">×</button>
+      </div>
+      <div id="search-results" class="search-results"></div>
+    </div>
+  `;
+  document.body.appendChild(searchPanel);
+  
+  const searchInput = document.getElementById('search-input');
+  const searchResultsDiv = document.getElementById('search-results');
+  const searchClear = document.getElementById('search-clear');
+  const searchClose = searchPanel.querySelector('.search-close');
+  
+  let searchTimeout;
+  let searchResults = [];
+  
+  // Find matches in document
+  function findMatches(query) {
+    if (!query || query.length < 2) return [];
+    
+    const content = document.querySelector('.container');
+    if (!content) return [];
+    
+    const elements = content.querySelectorAll('p, h1, h2, h3, h4, li');
+    const results = [];
+    const queryLower = query.toLowerCase();
+    
+    elements.forEach((el, index) => {
+      // Skip elements in search panel, notes panel, or forms
+      if (el.closest('#search-panel, .notes-panel, form')) return;
+      
+      const text = el.textContent || el.innerText || '';
+      if (text.toLowerCase().includes(queryLower)) {
+        // Find parent section for context
+        let section = null;
+        let current = el.parentElement;
+        while (current && current !== document.body) {
+          if (current.tagName === 'SECTION' && current.id) {
+            const heading = current.querySelector('h1, h2, h3, h4');
+            section = heading ? heading.textContent.trim() : current.id.replace(/-/g, ' ');
+            break;
+          }
+          current = current.parentElement;
+        }
+        
+        results.push({
+          element: el,
+          text: text.trim(),
+          section: section,
+          title: el.tagName.match(/^H[1-4]$/) ? text.trim() : (section || 'Content')
+        });
+      }
+    });
+    
+    return results;
+  }
+  
+  // Display search results
+  function displayResults(results) {
+    if (results.length === 0) {
+      searchResultsDiv.innerHTML = '<p class="search-no-results">No results found</p>';
+      return;
+    }
+    
+    // Group by section
+    const grouped = {};
+    results.forEach((result, originalIndex) => {
+      const key = result.section || 'Other';
+      if (!grouped[key]) {
+        grouped[key] = [];
+      }
+      grouped[key].push({ ...result, originalIndex });
+    });
+    
+    let html = '';
+    Object.keys(grouped).forEach(sectionKey => {
+      if (sectionKey !== 'Other') {
+        html += `<h3 class="search-section-title">${sectionKey}</h3>`;
+      }
+      
+      grouped[sectionKey].forEach(item => {
+        const snippet = item.text.substring(0, 150) + (item.text.length > 150 ? '...' : '');
+        html += `
+          <div class="search-result-item" data-index="${item.originalIndex}">
+            <h4>${item.title}</h4>
+            <p class="search-snippet">${snippet}</p>
+          </div>
+        `;
+      });
+    });
+    
+    searchResultsDiv.innerHTML = html;
+    
+    // Add click handlers
+    searchResultsDiv.querySelectorAll('.search-result-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const index = parseInt(this.dataset.index);
+        const result = results[index];
+        goToResult(result);
+      });
+    });
+  }
+  
+  // Navigate to search result
+  function goToResult(result) {
+    const element = result.element;
+    if (!element || !document.body.contains(element)) {
+      console.warn('Element not found');
+      return;
+    }
+    
+    // Scroll to element
+    element.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center',
+      inline: 'nearest'
+    });
+    
+    // Brief highlight
+    element.style.transition = 'background-color 0.3s';
+    element.style.backgroundColor = 'rgba(212, 175, 55, 0.3)';
+    setTimeout(() => {
+      element.style.backgroundColor = '';
+    }, 2000);
+  }
+  
+  // Search input handler
+  searchInput.addEventListener('input', function() {
+    const query = this.value.trim();
+    searchClear.style.display = query ? 'block' : 'none';
+    
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      if (query.length >= 2) {
+        searchResults = findMatches(query);
+        displayResults(searchResults);
+      } else {
+        searchResultsDiv.innerHTML = '';
+        searchResults = [];
+      }
+    }, 300);
+  });
+  
+  // Clear search
+  searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchResultsDiv.innerHTML = '';
+    searchResults = [];
+    searchClear.style.display = 'none';
+    searchInput.focus();
+  });
+  
+  // Toggle search panel
+  searchToggle.addEventListener('click', function() {
+    searchPanel.classList.toggle('open');
+    searchToggle.classList.toggle('active');
+    if (searchPanel.classList.contains('open')) {
+      searchInput.focus();
+    }
+  });
+  
+  // Close search panel
+  searchClose.addEventListener('click', function() {
+    searchPanel.classList.remove('open');
+    searchToggle.classList.remove('active');
+  });
+  
+  // Keyboard shortcut: Ctrl/Cmd + K
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      searchToggle.click();
+    }
+  });
+  
+  // ============================================
   // READING PROGRESS
   // ============================================
   
