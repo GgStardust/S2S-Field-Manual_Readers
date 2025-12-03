@@ -150,6 +150,22 @@ function createSidebarNav() {
     navList.appendChild(listItem);
   });
 
+  // Manually add Feedback Form link if it exists
+  const feedbackSection = document.getElementById('first-reader-feedback');
+  if (feedbackSection) {
+    const feedbackItem = document.createElement('li');
+    const feedbackLink = document.createElement('a');
+    feedbackLink.href = '#first-reader-feedback';
+    feedbackLink.textContent = 'Feedback Form';
+    feedbackLink.className = 'section-link';
+    feedbackLink.style.fontWeight = '500';
+    feedbackLink.style.marginTop = '1.5rem';
+    feedbackLink.style.paddingTop = '1.5rem';
+    feedbackLink.style.borderTop = '2px solid #e0e0e0';
+    feedbackItem.appendChild(feedbackLink);
+    navList.appendChild(feedbackItem);
+  }
+
   sidebar.appendChild(sidebarHeader);
   sidebar.appendChild(navList);
   document.body.insertBefore(sidebar, document.body.firstChild);
