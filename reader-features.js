@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create notes UI
   const notesToggle = document.createElement('button');
   notesToggle.id = 'notes-toggle';
-  notesToggle.innerHTML = '📝 Notes';
+  notesToggle.innerHTML = '<span class="icon">□</span><span class="label">Notes</span>';
   notesToggle.className = 'notes-toggle';
   notesToggle.setAttribute('aria-label', 'Toggle notes panel');
   document.body.appendChild(notesToggle);
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create search UI
   const searchToggle = document.createElement('button');
   searchToggle.id = 'search-toggle';
-  searchToggle.innerHTML = '🔍 Search';
+  searchToggle.innerHTML = '<span class="icon">○</span><span class="label">Search</span>';
   searchToggle.className = 'search-toggle';
   searchToggle.setAttribute('aria-label', 'Toggle search');
   document.body.appendChild(searchToggle);
@@ -460,14 +460,14 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!heading.querySelector('.bookmark-btn')) {
         const bookmarkBtn = document.createElement('button');
         bookmarkBtn.className = 'bookmark-btn';
-        bookmarkBtn.innerHTML = '🔖';
+        bookmarkBtn.innerHTML = '◊';
         bookmarkBtn.setAttribute('aria-label', 'Bookmark this section');
         bookmarkBtn.style.display = 'none';
         
         const isBookmarked = bookmarks.some(b => b.id === heading.id);
         if (isBookmarked) {
           bookmarkBtn.classList.add('bookmarked');
-          bookmarkBtn.innerHTML = '⭐';
+          bookmarkBtn.innerHTML = '■';
         }
         
         bookmarkBtn.addEventListener('click', function(e) {
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create bookmarks panel
   const bookmarksToggle = document.createElement('button');
   bookmarksToggle.id = 'bookmarks-toggle';
-  bookmarksToggle.innerHTML = '⭐ Bookmarks';
+  bookmarksToggle.innerHTML = '<span class="icon">■</span><span class="label">Bookmarks</span>';
   bookmarksToggle.className = 'bookmarks-toggle';
   bookmarksToggle.setAttribute('aria-label', 'Toggle bookmarks');
   document.body.appendChild(bookmarksToggle);
@@ -553,7 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function renderBookmarks() {
     if (bookmarks.length === 0) {
-      bookmarksList.innerHTML = '<p class="bookmarks-empty">No bookmarks yet. Click the 🔖 icon on any heading to bookmark it.</p>';
+      bookmarksList.innerHTML = '<p class="bookmarks-empty">No bookmarks yet. Click the ◊ icon on any heading to bookmark it.</p>';
       return;
     }
     
@@ -600,7 +600,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const bookmarkBtn = element.querySelector('.bookmark-btn');
           if (bookmarkBtn) {
             bookmarkBtn.classList.remove('bookmarked');
-            bookmarkBtn.innerHTML = '🔖';
+            bookmarkBtn.innerHTML = '◊';
           }
         }
         bookmarks.splice(index, 1);
@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const bookmarkBtn = element.querySelector('.bookmark-btn');
           if (bookmarkBtn) {
             bookmarkBtn.classList.remove('bookmarked');
-            bookmarkBtn.innerHTML = '🔖';
+            bookmarkBtn.innerHTML = '◊';
           }
         }
       });
@@ -684,7 +684,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const darkModeToggle = document.createElement('button');
   darkModeToggle.id = 'dark-mode-toggle';
-  darkModeToggle.innerHTML = isDarkMode ? '☀️' : '🌙';
+  darkModeToggle.innerHTML = isDarkMode ? '<span class="icon">●</span>' : '<span class="icon">○</span>';
   darkModeToggle.className = 'dark-mode-toggle';
   darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
   document.body.appendChild(darkModeToggle);
@@ -692,7 +692,7 @@ document.addEventListener('DOMContentLoaded', function() {
   darkModeToggle.addEventListener('click', function() {
     document.body.classList.toggle('dark-mode');
     const isNowDark = document.body.classList.contains('dark-mode');
-    this.innerHTML = isNowDark ? '☀️' : '🌙';
+    this.innerHTML = isNowDark ? '<span class="icon">●</span>' : '<span class="icon">○</span>';
     localStorage.setItem(darkModeStorageKey, isNowDark.toString());
   });
   
