@@ -294,25 +294,74 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function performSearch(query) {
     const content = document.querySelector('.container');
-    const text = content.innerText || content.textContent;
     const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     
-    // Find all sections with IDs
-    const sections = content.querySelectorAll('section[id], h1[id], h2[id], h3[id]');
+    // Find all sections with IDs - prioritize more specific sections
+    const allSections = content.querySelectorAll('section[id], h1[id], h2[id], h3[id], h4[id]');
     searchResults = [];
+    const processedIds = new Set();
     
-    sections.forEach(section => {
-      const sectionText = section.innerText || section.textContent;
+    // First, find direct matches in sections with IDs
+    allSections.forEach(section => {
+      if (!section.id || processedIds.has(section.id)) return;
+      
+      // Get text content of this section only (not nested sections)
+      const sectionClone = section.cloneNode(true);
+      // Remove nested sections from the clone
+      sectionClone.querySelectorAll('section').forEach(nested => nested.remove());
+      
+      const sectionText = sectionClone.innerText || sectionClone.textContent;
       if (regex.test(sectionText)) {
         const matches = sectionText.match(regex);
+        const title = section.querySelector('h1, h2, h3, h4')?.textContent?.trim() || 
+                     section.getAttribute('id')?.replace(/-/g, ' ') || 
+                     'Untitled Section';
+        
         searchResults.push({
           id: section.id,
-          title: section.querySelector('h1, h2, h3')?.textContent || section.id,
+          title: title,
           element: section,
           matches: matches ? matches.length : 0
         });
+        processedIds.add(section.id);
       }
     });
+    
+    // If no results in sections, search in paragraphs and find their parent section
+    if (searchResults.length === 0) {
+      const paragraphs = content.querySelectorAll('p');
+      paragraphs.forEach(p => {
+        const text = p.textContent || p.innerText;
+        if (regex.test(text)) {
+          // Find the closest parent section with an ID
+          let parentSection = p.closest('section[id]');
+          if (!parentSection) {
+            // Look for heading with ID
+            let heading = p.previousElementSibling;
+            while (heading && !heading.id) {
+              heading = heading.previousElementSibling;
+            }
+            if (heading && heading.id) {
+              parentSection = heading;
+            }
+          }
+          
+          if (parentSection && parentSection.id && !processedIds.has(parentSection.id)) {
+            const title = parentSection.querySelector('h1, h2, h3, h4')?.textContent?.trim() || 
+                         parentSection.getAttribute('id')?.replace(/-/g, ' ') || 
+                         'Untitled Section';
+            
+            searchResults.push({
+              id: parentSection.id,
+              title: title,
+              element: parentSection,
+              matches: 1
+            });
+            processedIds.add(parentSection.id);
+          }
+        }
+      });
+    }
     
     // Highlight matches
     highlightMatches(query);
@@ -399,22 +448,54 @@ document.addEventListener('DOMContentLoaded', function() {
     
     currentSearchIndex = index;
     const result = searchResults[index];
-    const element = document.getElementById(result.id);
+    
+    // Try to find the element by ID first
+    let element = document.getElementById(result.id);
+    
+    // If not found, try using the stored element reference
+    if (!element && result.element) {
+      element = result.element;
+    }
+    
+    // If still not found, try to find by the title
+    if (!element) {
+      const headings = document.querySelectorAll('h1, h2, h3, h4');
+      headings.forEach(heading => {
+        if (heading.textContent.trim() === result.title) {
+          element = heading.closest('section[id]') || heading;
+        }
+      });
+    }
     
     if (element) {
-      const offset = 100;
-      const elementPosition = element.offsetTop - offset;
+      const offset = 120; // Account for nav bar and progress bar
+      let elementPosition;
+      
+      // If it's a heading, scroll to it
+      if (element.tagName.match(/^H[1-4]$/)) {
+        elementPosition = element.offsetTop - offset;
+      } else {
+        // If it's a section, scroll to its first heading or top
+        const heading = element.querySelector('h1, h2, h3, h4');
+        elementPosition = heading ? heading.offsetTop - offset : element.offsetTop - offset;
+      }
+      
       window.scrollTo({
-        top: elementPosition,
+        top: Math.max(0, elementPosition),
         behavior: 'smooth'
       });
       
       // Highlight the section briefly
-      element.style.transition = 'background-color 0.3s';
-      element.style.backgroundColor = 'rgba(212, 175, 55, 0.2)';
-      setTimeout(() => {
-        element.style.backgroundColor = '';
-      }, 2000);
+      const highlightElement = element.tagName.match(/^H[1-4]$/) ? element : (element.querySelector('h1, h2, h3, h4') || element);
+      if (highlightElement) {
+        highlightElement.style.transition = 'background-color 0.3s';
+        highlightElement.style.backgroundColor = 'rgba(212, 175, 55, 0.2)';
+        setTimeout(() => {
+          highlightElement.style.backgroundColor = '';
+        }, 2000);
+      }
+    } else {
+      console.warn('Could not find element for search result:', result);
     }
     
     searchCount.textContent = `${index + 1} of ${searchResults.length}`;
