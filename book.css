@@ -1384,8 +1384,8 @@ div[style*="page-break-before"] {
 
 .dark-mode-toggle {
   position: fixed;
-  bottom: 1.5rem;
-  right: 19.5rem;
+  top: 1rem;
+  right: 1rem;
   z-index: 1002;
   background-color: var(--color-secondary);
   color: var(--color-white);
@@ -1482,8 +1482,7 @@ body.dark-mode .reading-progress {
 @media (max-width: 1024px) {
   .notes-toggle,
   .search-toggle,
-  .bookmarks-toggle,
-  .dark-mode-toggle {
+  .bookmarks-toggle {
     bottom: 1rem;
     padding: 0.5rem 0.7rem;
     font-size: 0.8rem;
@@ -1502,16 +1501,17 @@ body.dark-mode .reading-progress {
   }
 
   .dark-mode-toggle {
-    right: 16rem;
+    top: 0.75rem;
+    right: 0.75rem;
     padding: 0.5rem 0.65rem;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 768px) {
   .notes-toggle,
   .search-toggle,
-  .bookmarks-toggle,
-  .dark-mode-toggle {
+  .bookmarks-toggle {
     bottom: 0.75rem;
     padding: 0.5rem 0.6rem;
     font-size: 0.75rem;
@@ -1530,8 +1530,10 @@ body.dark-mode .reading-progress {
   }
 
   .dark-mode-toggle {
-    right: 12rem;
+    top: 0.5rem;
+    right: 0.5rem;
     padding: 0.5rem 0.6rem;
+    font-size: 0.85rem;
   }
 
   .notes-toggle .label,
