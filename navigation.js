@@ -110,6 +110,23 @@ function createSidebarNav() {
   const navList = document.createElement('ul');
   navList.className = 'sidebar-nav';
 
+  // Add First Reader Welcome link at the top
+  const firstReaderSection = document.getElementById('first-reader-welcome');
+  if (firstReaderSection) {
+    const firstReaderItem = document.createElement('li');
+    const firstReaderLink = document.createElement('a');
+    firstReaderLink.href = '#first-reader-welcome';
+    firstReaderLink.textContent = 'For First Readers';
+    firstReaderLink.className = 'section-link';
+    firstReaderLink.style.fontWeight = '600';
+    firstReaderLink.style.color = 'var(--color-accent)';
+    firstReaderLink.style.marginBottom = '1rem';
+    firstReaderLink.style.paddingBottom = '1rem';
+    firstReaderLink.style.borderBottom = '2px solid var(--color-accent)';
+    firstReaderItem.appendChild(firstReaderLink);
+    navList.appendChild(firstReaderItem);
+  }
+
   // Use the existing TOC links from Pandoc
   const tocLinks = document.querySelectorAll('#TOC a[href^="#"]');
   
