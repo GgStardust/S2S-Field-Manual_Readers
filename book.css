@@ -700,6 +700,230 @@ div[style*="page-break-before"] {
 }
 
 /* ============================================
+   READER FEATURES: NOTES & AUTO-SAVE
+   ============================================ */
+
+.notes-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1002;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notes-toggle:hover {
+  background-color: #b8941f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.notes-toggle.active {
+  background-color: #b8941f;
+}
+
+.notes-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background-color: var(--color-white);
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid var(--color-accent);
+}
+
+.notes-panel.open {
+  right: 0;
+}
+
+.notes-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-light);
+}
+
+.notes-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.notes-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--color-secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.notes-close:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-primary);
+}
+
+.notes-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+#notes-textarea {
+  flex: 1;
+  width: 100%;
+  padding: 1rem;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-primary);
+  background-color: var(--color-white);
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  resize: none;
+  margin-bottom: 1rem;
+}
+
+#notes-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.notes-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.notes-clear {
+  background: none;
+  border: 1px solid #d0d0d0;
+  color: var(--color-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notes-clear:hover {
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.notes-saved-indicator {
+  font-size: 0.85rem;
+  color: var(--color-secondary);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+/* Notifications */
+.notification {
+  position: fixed;
+  bottom: 6rem;
+  right: 2rem;
+  z-index: 1003;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  max-width: 300px;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-success {
+  background-color: #4a9b4a;
+}
+
+.notification-info {
+  background-color: var(--color-accent);
+}
+
+@media (max-width: 1024px) {
+  .notes-panel {
+    width: 100%;
+    right: -100%;
+  }
+
+  .notes-toggle {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .notification {
+    right: 1rem;
+    bottom: 5rem;
+    max-width: calc(100% - 2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .notes-toggle {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .notes-toggle::before {
+    content: '📝';
+  }
+
+  .notes-toggle span {
+    display: none;
+  }
+}
+
+/* ============================================
    UTILITY CLASSES
    ============================================ */
 
