@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
     searchResultsDiv.innerHTML = searchResults.map((result, index) => `
       <div class="search-result-item" data-index="${index}" data-id="${result.id}">
         <h4>${result.title}</h4>
-        <p>${result.matches} match${result.matches !== 1 ? 'es' : ''}</p>
+        <p>${result.matches} match${result.matches !== 1 ? 'es' : ''} • ${Math.round(result.similarity * 100)}% resonance</p>
       </div>
     `).join('');
     
