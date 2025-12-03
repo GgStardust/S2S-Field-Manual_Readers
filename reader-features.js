@@ -292,14 +292,36 @@ document.addEventListener('DOMContentLoaded', function() {
     searchToggle.classList.remove('active');
   });
   
+  // RBI Text Similarity Function (from RBI-Kernel)
+  function calculateTextSimilarity(text1, text2) {
+    const words1 = new Set(
+      text1.toLowerCase()
+        .replace(/[^\w\s]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w.length > 2)
+    );
+    const words2 = new Set(
+      text2.toLowerCase()
+        .replace(/[^\w\s]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w.length > 2)
+    );
+
+    const intersection = new Set([...words1].filter(x => words2.has(x)));
+    const union = new Set([...words1, ...words2]);
+
+    if (union.size === 0) return 0;
+    return intersection.size / union.size;
+  }
+
   function performSearch(query) {
     const content = document.querySelector('.container');
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const queryLower = query.toLowerCase().trim();
     
     searchResults = [];
     const processedIds = new Set();
     
-    // Simple approach: find all sections and headings with IDs, check their text
+    // Find all sections and headings with IDs
     const allElements = content.querySelectorAll('section[id], h1[id], h2[id], h3[id], h4[id]');
     
     allElements.forEach(el => {
@@ -316,28 +338,39 @@ document.addEventListener('DOMContentLoaded', function() {
         // For headings, get the heading text and following content until next heading
         textToSearch = el.textContent || el.innerText;
         let next = el.nextElementSibling;
-        while (next && !next.tagName.match(/^H[1-4]$/) && !next.tagName === 'SECTION') {
+        while (next && !next.tagName.match(/^H[1-4]$/) && next.tagName !== 'SECTION') {
           textToSearch += ' ' + (next.textContent || next.innerText);
           next = next.nextElementSibling;
         }
       }
       
-      if (regex.test(textToSearch)) {
-        const matches = textToSearch.match(regex);
+      // Use RBI text similarity instead of regex matching
+      const similarity = calculateTextSimilarity(query, textToSearch);
+      const threshold = 0.1; // Minimum similarity threshold
+      
+      if (similarity >= threshold) {
         const title = el.querySelector('h1, h2, h3, h4')?.textContent?.trim() || 
                      el.textContent?.trim() || 
                      el.id.replace(/-/g, ' ');
         
-        // Store the actual DOM element
+        // Count word matches for display
+        const queryWords = new Set(queryLower.split(/\s+/).filter(w => w.length > 2));
+        const textWords = new Set(textToSearch.toLowerCase().split(/\s+/).filter(w => w.length > 2));
+        const matchCount = [...queryWords].filter(w => textWords.has(w)).length;
+        
         searchResults.push({
           id: el.id,
           title: title,
           element: el,
-          matches: matches ? matches.length : 0
+          matches: matchCount,
+          similarity: similarity
         });
         processedIds.add(el.id);
       }
     });
+    
+    // Sort by similarity score (highest first)
+    searchResults.sort((a, b) => b.similarity - a.similarity);
     
     // Highlight matches
     highlightMatches(query);
