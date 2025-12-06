@@ -689,24 +689,19 @@ div[style*="page-break-before"] {
    ============================================ */
 
 @media print {
-  .nav-container {
-    display: none;
+  /* Hide all content when printing - copyright protection */
+  body * {
+    display: none !important;
   }
 
-  .page-break {
-    page-break-before: always;
-  }
-
-  body {
-    font-size: 12pt;
-  }
-
-  h1 {
-    font-size: 24pt;
-  }
-
-  h2 {
-    font-size: 20pt;
+  body::before {
+    content: "Copyright © 2025 by Gigi Stardust (Jennifer Dye). All rights reserved. No part of this book may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying, recording, or any information storage and retrieval system, without prior written permission from the publisher. This content is protected by copyright and is not available for printing.";
+    display: block !important;
+    font-size: 14pt;
+    text-align: center;
+    padding: 2in;
+    margin: 2in;
+    border: 2px solid #000;
   }
 }
 
