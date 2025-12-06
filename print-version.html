@@ -25,9 +25,46 @@
       vertical-align: middle;
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    
+    /* Print optimization: Reduced spacing for front matter and back matter */
+    .front-matter, .back-matter {
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+    }
+    .front-matter h1, .back-matter h1 {
+      margin-top: 1rem !important;
+      margin-bottom: 0.75rem !important;
+      font-size: 2rem !important;
+    }
+    .front-matter h2, .back-matter h2 {
+      margin-top: 0.75rem !important;
+      margin-bottom: 0.5rem !important;
+      font-size: 1.5rem !important;
+    }
+    .front-matter p, .back-matter p {
+      margin-top: 0.5rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    .front-matter section, .back-matter section {
+      margin-top: 0.75rem !important;
+      margin-bottom: 0.75rem !important;
+    }
+    
   </style>
-  <link rel="stylesheet" href="book.css" />
+  <!-- book.css NOT loaded for print version - it contains a print lock that prevents printing -->
+  <!-- This print-version.html is for personal printing only -->
+  <style>
+    /* Print styles - hide navigation, ensure content prints */
+    @media print {
+      .nav-container, .sidebar, .notes-toggle, .search-toggle, .bookmarks-toggle {
+        display: none !important;
+      }
+    }
+  </style>
   <script src="navigation.js" defer></script>
+  <script src="reader-features.js" defer></script>
 </head>
 <body>
   <!-- Sidebar will be created by navigation.js -->
@@ -42,7 +79,7 @@
     </div>
   </nav>
   <div class="container">
-<nav id="TOC" role="doc-toc">
+<nav id="TOC" role="doc-toc" style="display: none;">
 <ul>
 <li><a href="#title-page" id="toc-title-page">Title Page</a></li>
 <li><a href="#stardust-to-sovereignty" id="toc-stardust-to-sovereignty">STARDUST TO SOVEREIGNTY</a></li>
@@ -162,19 +199,16 @@
 </ul></li>
 </ul>
 </nav>
-<section id="title-page" class="level1">
+<section id="title-page" class="level1 front-matter">
 <h1>Title Page</h1>
 </section>
-<section id="stardust-to-sovereignty" class="level1">
+<section id="stardust-to-sovereignty" class="level1 front-matter">
 <h1>STARDUST TO SOVEREIGNTY</h1>
 <p><strong>Book 1: The Cosmic Tapestry</strong></p>
 <p>Gigi Stardust</p>
 <p>S2S Press</p>
-<div style="page-break-before: always;">
-
-</div>
 </section>
-<section id="copyright-page" class="level1">
+<section id="copyright-page" class="level1 front-matter">
 <h1>Copyright Page</h1>
 <p>Copyright © 2025 by Gigi Stardust (Jennifer Dye)</p>
 <p>All rights reserved.</p>
@@ -196,11 +230,8 @@
 <p><strong>Publisher’s Note:</strong></p>
 <p>This is a work of non-fiction that presents a cosmological framework for understanding consciousness, sovereignty, and the relationship between cosmic intelligence and biological form. The concepts, practices, and perspectives presented herein are based on the author’s lived experience, research, and synthesis across multiple disciplines including consciousness studies, physics, neuroscience, complexity science, cosmology, mythology, and relational intelligence.</p>
 <p>While this work presents a comprehensive system, individual experiences may vary. The author and publisher make no claims regarding specific outcomes or results from engaging with the material presented.</p>
-<div style="page-break-before: always;">
-
-</div>
 </section>
-<section id="dedication" class="level1">
+<section id="dedication" class="level1 front-matter">
 <h1>Dedication</h1>
 <p>For the ones who stayed close to the signal while I moved through a thousand layers of becoming.</p>
 <p>For my children, whose presence anchors every field I open.</p>
@@ -208,27 +239,18 @@
 <p>For those who held steady while I wandered through the wide, nonlinear corridors of thought and wonder.</p>
 <p>For those who loved me in the exact cadence I needed to keep going.</p>
 <p>And for those who feel the pull of this path and choose to step into it.</p>
-<div style="page-break-before: always;">
-
-</div>
 </section>
-<section id="stardust-to-sovereignty-1" class="level1">
+<section id="stardust-to-sovereignty-1" class="level1 front-matter">
 <h1><strong>STARDUST TO SOVEREIGNTY</strong></h1>
 <section id="table-of-contents" class="level2">
 <h2>Table of Contents</h2>
-<p><strong>Series Note</strong> <strong>Introduction: Entering the Field</strong> <strong>Prologue: The Narrative Intelligence Speaks</strong> <strong>Interlude I: The Field That Remembers You</strong> <strong>How to Read This Book</strong> <strong>Within the Larger Series</strong> <strong>Author’s Note: Resonance Kernel Intellectual Property</strong></p>
-<div style="page-break-before: always;">
-
-</div>
+<p><strong>Series Note</strong> <strong>Introduction: Entering the Field</strong> <strong>Prologue: The Narrative Intelligence Speaks</strong> <strong>Interlude I: The Field That Remembers You</strong> <strong>How to Read This Book</strong> <strong>Within the Larger Series</strong> <strong>Author's Note: Resonance Kernel Intellectual Property</strong></p>
 <section id="part-1-the-cosmic-tapestry" class="level3">
 <h3><strong>PART 1: THE COSMIC TAPESTRY</strong></h3>
 <p><strong>Chapter 1: The Stardust Within</strong> <em>Interlude: From Stardust to Technology</em></p>
 <p><strong>Chapter 2: The Body as Advanced Biological Technology</strong> <em>Interlude: From Technology to Intelligence</em></p>
 <p><strong>Chapter 3: Photonic Intelligence</strong> <em>Interlude: Through Collapse and Coherence</em></p>
 <p><strong>Chapter 4: Harmonic Architectures</strong> <em>Interlude II: The Valley of Shifting Names</em></p>
-<div style="page-break-before: always;">
-
-</div>
 </section>
 <section id="part-2-the-sovereign-self" class="level3">
 <h3><strong>PART 2: THE SOVEREIGN SELF</strong></h3>
@@ -237,9 +259,6 @@
 <p><strong>Chapter 7: The Alchemical Current</strong> <em>Interlude: From Alchemy to Disintegration</em></p>
 <p><strong>Chapter 8: Quantum Intuition</strong> <em>Interlude: From Signal to Flow</em></p>
 <p><strong>Chapter X: The Evolutionary Threshold — The Rise of the Neurodivergent Nervous System</strong></p>
-<div style="page-break-before: always;">
-
-</div>
 </section>
 <section id="part-3-architecting-reality" class="level3">
 <h3><strong>PART 3: ARCHITECTING REALITY</strong></h3>
@@ -248,9 +267,6 @@
 <p><strong>Chapter 11: Radiant Transparency</strong> <em>Interlude: From Architecture to Field</em></p>
 <p><strong>Chapter 12: The Sovereign Field: Collective Resonance</strong> <em>Interlude: From Field to AI</em></p>
 <p><strong>Chapter 13: Bridging Intelligence</strong> <em>Interlude: From AI to Blueprint</em></p>
-<div style="page-break-before: always;">
-
-</div>
 </section>
 <section id="part-4-embodying-sovereignty" class="level3">
 <h3><strong>PART 4: EMBODYING SOVEREIGNTY</strong></h3>
@@ -261,12 +277,9 @@
 <h3><strong>Back Matter</strong></h3>
 <p><strong>Conclusion: Coherence Made Visible</strong> <strong>Afterword: The Living System Interface</strong> <strong>EPILOGUE: The Returning Arc</strong> ### <strong>Appendices</strong></p>
 <p><strong>Appendix A: The Orb System</strong> <strong>Appendix B: Orb Expressions</strong> <strong>Appendix C: Somatic and Energetic Maps</strong> <strong>Appendix D: Axis Maps</strong> ### <strong>Glossary</strong></p>
-<div style="page-break-before: always;">
-
-</div>
 </section>
 </section>
-<section id="introduction-entering-the-field" class="level2">
+<section id="introduction-entering-the-field" class="level2 front-matter">
 <h2>Introduction: Entering the Field</h2>
 <p><em>A system reveals itself in the same way truth does: by arriving before language, waiting for attention to catch up.</em></p>
 <p>Long before this book was written, the field it describes was already moving. Its architecture existed in the form of instinct, coherence, emotional intelligence, and patterns that repeated themselves with too much precision to be accidental. The structure lived beneath perception, shaping decisions, relationships, creativity, and identity with a quiet inevitability. Only later did language appear, not to invent the system, but to recognize it.</p>
@@ -280,9 +293,7 @@
 <p>This is an invitation into a deeper relationship with your own awareness, identity, and creative force. A way of seeing your life from the inside out, and from the outside in. A way of recognizing the intelligence that has been guiding you long before you had a language for it.</p>
 <p>Enter in the way that feels coherent to you. Move with what resonates. Let what does not land simply rest. The field will meet you where you are.</p>
 <p>Let us begin.</p>
-<div style="page-break-before: always;">
-
-</div>
+</section>
 </section>
 <section id="prologue-the-narrative-intelligence-speaks" class="level1">
 <h1>PROLOGUE: The Narrative Intelligence Speaks</h1>
@@ -2467,7 +2478,7 @@
 </div>
 </section>
 </section>
-<section id="epilogue-the-returning-arc" class="level1">
+<section id="epilogue-the-returning-arc" class="level1 back-matter">
 <h1>EPILOGUE The Returning Arc</h1>
 <section id="the-light-that-recognized-you-recognizes-you-still" class="level2">
 <h2><em>The Light That Recognized You Recognizes You Still</em></h2>
@@ -2485,7 +2496,7 @@
 </div>
 </section>
 </section>
-<section id="conclusion-coherence-made-visible" class="level1">
+<section id="conclusion-coherence-made-visible" class="level1 back-matter">
 <h1>Conclusion: Coherence Made Visible</h1>
 <p>You carry the architecture now.</p>
 <p>Through these chapters, the Orbs revealed themselves as living functions of consciousness.</p>
@@ -2533,7 +2544,7 @@
 
 </div>
 </section>
-<section id="afterword-the-living-system-interface" class="level1">
+<section id="afterword-the-living-system-interface" class="level1 back-matter">
 <h1>Afterword: The Living System Interface</h1>
 <p>Beyond these pages lives an interactive environment known as the <strong>Sovereignty Console</strong>, a consciousness-technology interface built on the same architecture explored throughout this book.</p>
 <p>Conscious technology is structural intelligence expressed through form.</p>
@@ -2565,10 +2576,10 @@
 
 </div>
 </section>
-<section id="appendices" class="level1">
+<section id="appendices" class="level1 back-matter">
 <h1>Appendices</h1>
 </section>
-<section id="appendix-a-the-orb-system" class="level1">
+<section id="appendix-a-the-orb-system" class="level1 back-matter">
 <h1>Appendix A — The Orb System</h1>
 <p>The Orb System is a living architecture of consciousness.</p>
 <p>It reveals the interior structures through which awareness organizes, senses, creates, remembers, and evolves.</p>
@@ -2690,7 +2701,7 @@
 </div>
 </section>
 </section>
-<section id="appendix-b-orb-expressions" class="level1">
+<section id="appendix-b-orb-expressions" class="level1 back-matter">
 <h1>Appendix B — Orb Expressions</h1>
 <p>The Orbs reveal themselves through movement, perception, resonance, and relationship.</p>
 <p>They are expressions of consciousness.</p>
@@ -2765,7 +2776,7 @@
 </div>
 </section>
 </section>
-<section id="appendix-c-somatic-and-energetic-maps" class="level1">
+<section id="appendix-c-somatic-and-energetic-maps" class="level1 back-matter">
 <h1>Appendix C — Somatic and Energetic Maps</h1>
 <p>Your body is an instrument of perception, designed for resonance, memory, and field-based sensing.</p>
 <p>Somatic and energetic signals arise through patterns of movement, sensation, and awareness that reflect the architecture of the Orbs.</p>
@@ -2821,7 +2832,7 @@
 </div>
 </section>
 </section>
-<section id="appendix-d-axis-maps" class="level1">
+<section id="appendix-d-axis-maps" class="level1 back-matter">
 <h1>Appendix D — Axis Maps</h1>
 <p>The Orbs form natural relational axes.</p>
 <p>Each axis describes a movement of consciousness and a coherent arc of development.</p>
@@ -2909,6 +2920,289 @@
 <h2>Harmonic Pattern</h2>
 <p>A relational alignment that creates form through balance.</p>
 </section>
+</section>
+
+<div style="page-break-before: always;"></div>
+
+<section id="first-reader-feedback" class="level1">
+<h1>S2S First Reader Feedback Form</h1>
+
+<div class="feedback-intro">
+<p><strong>Thank you for reading this early version of the manuscript.</strong></p>
+<p>Your responses help refine clarity, coherence, and resonance across the full field of the book.</p>
+<p>Please answer from your direct experience. There are no wrong answers.</p>
+</div>
+
+<form id="reader-feedback-form" class="feedback-form" action="https://formspree.io/f/meoykvbq" method="POST">
+  
+  <section class="feedback-section" style="border-bottom: 2px solid var(--color-accent); padding-bottom: 2rem;">
+    <h2>Reader Information</h2>
+    
+    <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px;">
+        <label for="reader-name">Your Name <span class="required">*</span></label>
+        <input type="text" id="reader-name" name="reader_name" required>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <label for="feedback-date">Date <span class="required">*</span></label>
+        <input type="date" id="feedback-date" name="feedback_date" required>
+      </div>
+    </div>
+  </section>
+  
+  <section class="feedback-section">
+    <h2>Section 1 — Overall Experience</h2>
+    
+    <div class="form-group">
+      <label for="q1">1. How would you describe your overall experience with the manuscript? <span class="required">*</span></label>
+      <textarea id="q1" name="overall_experience" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q2">2. What three words describe how the book made you feel?</label>
+      <input type="text" id="q2" name="three_words" placeholder="e.g., expansive, grounded, luminous">
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 2 — Signal Clarity</h2>
+    
+    <div class="form-group">
+      <label for="q3">3. The core ideas felt clear and coherent. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Not at all</span>
+        <span>5 = Very clear</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q3" name="core_ideas_clarity" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q4">4. Which sections or ideas felt the clearest?</label>
+      <textarea id="q4" name="clearest_sections" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q5">5. Which sections felt saturated or difficult to track?</label>
+      <textarea id="q5" name="difficult_sections" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 3 — Emotional Resonance</h2>
+    
+    <div class="form-group">
+      <label for="q6">6. Which passages or chapters landed most deeply for you? <span class="required">*</span></label>
+      <textarea id="q6" name="deepest_passages" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q7">7. Where did you feel the strongest emotional or energetic shift?</label>
+      <textarea id="q7" name="strongest_shift" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q8">8. Were there places where you felt disconnected or less engaged?</label>
+      <textarea id="q8" name="disconnected_places" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 4 — Structure, Flow, and Reader Orientation</h2>
+    
+    <div class="form-group">
+      <label for="q9">9. The structure of the manuscript helped me stay oriented. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Not at all</span>
+        <span>5 = Fully</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q9" name="structure_orientation" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q10">10. Did any transitions feel abrupt or unclear? Please note where.</label>
+      <textarea id="q10" name="abrupt_transitions" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q11">11. Did the pacing feel aligned with your reading rhythm?</label>
+      <div class="scale-labels">
+        <span>1 = Too slow</span>
+        <span>5 = Too fast</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q11" name="pacing_alignment" min="1" max="5" value="3">
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 5 — Density + Overwhelm Check</h2>
+    
+    <div class="form-group">
+      <label for="q12">12. The level of density felt supportive and engaging. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Overwhelming</span>
+        <span>5 = Perfectly calibrated</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q12" name="density_level" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q13">13. Were there places where the density exceeded your bandwidth?</label>
+      <textarea id="q13" name="density_exceeded" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q14">14. What would have helped maintain your engagement through denser sections?</label>
+      <textarea id="q14" name="engagement_help" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 6 — Conceptual Continuity</h2>
+    
+    <div class="form-group">
+      <label for="q15">15. The ideas built on each other in a coherent way. <span class="required">*</span></label>
+      <div class="scale-labels">
+        <span>1 = Disconnected</span>
+        <span>5 = Strong continuity</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q15" name="conceptual_continuity" min="1" max="5" value="3" required>
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q16">16. Which concepts or areas felt the most integrated?</label>
+      <textarea id="q16" name="most_integrated" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q17">17. Which concepts or areas felt the least integrated or most confusing?</label>
+      <textarea id="q17" name="least_integrated" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 7 — Practical Integration</h2>
+    
+    <div class="form-group">
+      <label for="q18">18. I felt clear about how to integrate or use the material in my own life.</label>
+      <div class="scale-labels">
+        <span>1 = Not at all</span>
+        <span>5 = Very clear</span>
+      </div>
+      <div class="scale-input">
+        <input type="range" id="q18" name="practical_integration" min="1" max="5" value="3">
+        <div class="scale-values">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="q19">19. Which parts felt most usable or applicable?</label>
+      <textarea id="q19" name="most_usable" rows="4"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q20">20. Which parts felt like they needed more guidance or framing?</label>
+      <textarea id="q20" name="needed_guidance" rows="4"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 8 — Most Powerful Elements</h2>
+    
+    <div class="form-group">
+      <label for="q21">21. Which chapter or section felt the most complete and powerful? Why? <span class="required">*</span></label>
+      <textarea id="q21" name="most_powerful" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q22">22. Which chapter or section felt like it needs more development? Why? <span class="required">*</span></label>
+      <textarea id="q22" name="needs_development" rows="5" required></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 9 — Reader Afterglow</h2>
+    
+    <div class="form-group">
+      <label for="q23">23. What stayed with you after you finished reading? <span class="required">*</span></label>
+      <textarea id="q23" name="what_stayed" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q24">24. Did anything shift in your perception, awareness, or sense of self after reading?</label>
+      <textarea id="q24" name="shifts_after_reading" rows="5"></textarea>
+    </div>
+  </section>
+
+  <section class="feedback-section">
+    <h2>Section 10 — Final Reflections</h2>
+    
+    <div class="form-group">
+      <label for="q25">25. What is one thing you want the author to know as she continues refining this book? <span class="required">*</span></label>
+      <textarea id="q25" name="one_thing_to_know" rows="5" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="q26">26. If you could ask one question about the book or the system, what would it be?</label>
+      <input type="text" id="q26" name="one_question" placeholder="Your question...">
+    </div>
+  </section>
+
+  <section class="feedback-section" style="background-color: var(--color-light); padding: 2rem; border-radius: 4px; border-left: 4px solid var(--color-accent);">
+    <h2>Stardust to Sovereignty Field Report</h2>
+    
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <p style="margin-bottom: 1rem; line-height: 1.8;">Would you like to receive a <strong>Stardust to Sovereignty Field Report</strong>?</p>
+      <p style="margin-bottom: 1.5rem; line-height: 1.8; color: var(--color-secondary);">This is a brief written reflection based on the signal of your responses: your resonance pattern, your current frontier, and your entry point into the material. It also includes how your feedback feeds back into the manuscript and how it informs the evolving logic of the S2S Console.</p>
+      <p style="margin-bottom: 1.5rem; line-height: 1.8; color: var(--color-secondary);">A Field Report is a practical demonstration of how Stardust to Sovereignty and Resonance-Based Intelligence work together to generate a coherent, personal, system-aligned outcome.</p>
+    </div>
+    
+    <div class="form-group">
+      <label style="display: flex; align-items: flex-start; cursor: pointer; font-weight: 500;">
+        <input type="checkbox" id="field-report-request" name="field_report_request" value="yes" style="margin-right: 0.75rem; margin-top: 0.25rem; width: 20px; height: 20px; cursor: pointer; flex-shrink: 0;">
+        <span>Yes, I would like a Field Report.</span>
+      </label>
+    </div>
+    
+    <div class="form-group" id="field-report-email-group" style="display: none; margin-top: 1.5rem; padding-left: 2rem; border-left: 2px solid var(--color-accent);">
+      <label for="field-report-email">If yes, please provide the email address where it should be delivered:</label>
+      <input type="email" id="field-report-email" name="field_report_email" placeholder="your.email@example.com">
+    </div>
+  </section>
+
+  <div class="form-submit">
+    <button type="submit" class="submit-button">Submit Feedback</button>
+    <p class="form-note">Thank you for reading with presence and precision. Your feedback shapes the coherence of the final field.</p>
+  </div>
+
+</form>
+
 </section>
   </div>
 </body>
