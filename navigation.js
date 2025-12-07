@@ -175,7 +175,7 @@ function createSidebarNav() {
                text.includes('Afterword') || text.includes('Dedication')) {
       link.className = 'section-link';
       link.style.fontWeight = '500';
-    } else if (text === 'The Field That Remembers You') {
+    } else if (text === 'Interlude I: The Field That Remembers You' || text === 'The Field That Remembers You') {
       link.className = 'interlude-link';
     }
     

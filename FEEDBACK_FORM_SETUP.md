@@ -52,8 +52,8 @@ If you have a backend server, you can:
 1. Go to https://formspree.io/forms
 2. Click "New Form"
 3. Name it "S2S First Reader Feedback"
-4. Copy your form endpoint (looks like: `https://formspree.io/f/xpzgkqyz`)
-5. In `index.html`, replace `YOUR_FORM_ID` with just the ID part (e.g., `xpzgkqyz`)
+4. Copy your form endpoint (looks like: `https://formspree.io/f/meoykvbq`)
+5. In `index.html`, replace `YOUR_FORM_ID` with just the ID part (e.g., `meoykvbq`)
 
 The form will automatically:
 - Email you when someone submits
